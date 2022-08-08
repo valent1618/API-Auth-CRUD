@@ -131,9 +131,9 @@ Create an account : <https://www.mongodb.com/cloud/atlas/register>
 
 In app.js/line:11 replace :
 
-- <USERNAME>
-- <PASSWORD>
-- <MongoAtlasCluster>
+- \<USERNAME>
+- \<PASSWORD>
+- \<MongoAtlasCluster>
 
 ## RUN
 
