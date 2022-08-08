@@ -30,9 +30,9 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/api', express.static('index.html'));
 app.use('/api/stuff', stuffRoutes);
 app.use('/api/auth', userRoutes);
+app.use('/api', express.static(path.join(__dirname, 'docs')));
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 module.exports = app;
