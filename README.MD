@@ -11,7 +11,7 @@ API for authentication and handle stuff with file.
 
 ## Routes
 
-You can have a better look to the routes when API is running at http://localhost:3000/api
+You can have a better look to the routes at : https://valent1618.github.io/API-Auth-CRUD/
 
 ### User
 
