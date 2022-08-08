@@ -15,7 +15,7 @@ You can have a better look to the routes when API is running at http://localhost
 
 ### User
 
-#### /api/signup
+#### /api/auth/signup
 
 **POST**
 Create a user
@@ -24,7 +24,7 @@ Create a user
 {**email**: _string_,
 **password**: _string_}
 
-#### /api/login
+#### /api/auth/login
 
 **POST**
 Login
