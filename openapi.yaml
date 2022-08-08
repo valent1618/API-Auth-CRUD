@@ -1,0 +1,279 @@
+openapi: 3.0.1
+info:
+  title: Authentication and CRUD stuff
+  description: Contains all available API endpoints in this codebase
+  contact:
+    email: valentinlemaire1618@gmail.com
+  version: 1.0.0
+servers:
+- url: http://localhost:3000/api
+tags:
+- name: stuff
+  description: All kind off stuff
+- name: user
+  description: Operations about user
+paths:
+  /stuff:
+    get:
+      tags:
+      - stuff
+      summary: Get all the stuff
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Stuff'
+        400:
+          description: client error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+      security:
+      - Bearer: []
+    post:
+      tags:
+      - stuff
+      summary: Create a stuff
+      requestBody:
+        description: The stuff to save into the ddb
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/Stuff'
+        required: true
+      responses:
+        201:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        400:
+          description: client error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+      security:
+      - Bearer: []
+      x-codegen-request-body-name: body
+  /stuff/${id}:
+    get:
+      tags:
+      - stuff
+      summary: Get a specific stuff
+      parameters:
+      - name: id
+        in: path
+        description: ID of stuff to return
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stuff'
+        400:
+          description: client error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+      security:
+      - Bearer: []
+    put:
+      tags:
+      - stuff
+      summary: Modify a specific stuff
+      parameters:
+      - name: id
+        in: path
+        description: ID of stuff to modify
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The stuff to modify
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/Stuff'
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        400:
+          description: client error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        401:
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+      security:
+      - Bearer: []
+      x-codegen-request-body-name: body
+    delete:
+      tags:
+      - stuff
+      summary: Delete a specific stuff
+      parameters:
+      - name: id
+        in: path
+        description: ID of stuff to delete
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        400:
+          description: client error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+      security:
+      - Bearer: []
+  /auth/signup:
+    post:
+      tags:
+      - user
+      summary: Create a user
+      requestBody:
+        description: The user to create
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        201:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        400:
+          description: client error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+      x-codegen-request-body-name: body
+  /auth/login:
+    post:
+      tags:
+      - user
+      summary: Login
+      requestBody:
+        description: The user to log
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        201:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        400:
+          description: client error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+      x-codegen-request-body-name: body
+components:
+  schemas:
+    ApiResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          format: int32
+        message:
+          type: object
+          properties: {}
+    LoginResponse:
+      type: object
+      properties:
+        userId:
+          type: string
+        token:
+          type: string
+    Stuff:
+      required:
+      - description
+      - imageUrl
+      - price
+      - title
+      - userId
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        imageUrl:
+          type: string
+        userId:
+          type: string
+        price:
+          type: number
+    User:
+      required:
+      - email
+      - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+  securitySchemes:
+    Bearer:
+      type: apiKey
+      name: Authorization
+      in: header
