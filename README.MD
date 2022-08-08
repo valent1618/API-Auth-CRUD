@@ -4,10 +4,10 @@
 
 API for authentication and handle stuff with file.
 
-MongoDB Atlas is used for the database.
-bcrypt is used to encrypt the user's password before saving it to the DDB.
-jsonwebtoken is used to create a token to replace userId and improve security.
-multer is used to handle file.
+- **MongoDB** Atlas is used for the database.
+- **bcrypt** is used to encrypt the user's password before saving it to the DDB.
+- **jsonwebtoken** is used to create a token to replace userId and improve security.
+- **multer** is used to handle file.
 
 ## Routes
 
@@ -21,8 +21,8 @@ You can have a better look to the routes when API is running at http://localhost
 Create a user
 
 **Params**
-{email: string
-password: string}
+{**email**: _string_,
+**password**: _string_}
 
 #### /api/login
 
@@ -30,17 +30,17 @@ password: string}
 Login
 
 **Params**
-{email: string
-password: string}
+{**email**: _string_,
+**password**: _string_}
 
 **Response**
-{userId: string
-token: string}
+{**userId**: _string_,
+**token**: _string_}
 
 ### Stuff
 
 **Header params for all stuff**
-{token: string _a valid token_}
+{**token**: _string_ _a valid token_}
 
 #### /api/stuff
 
@@ -48,11 +48,11 @@ token: string}
 Get all the stuff
 
 **Response**
-[{title: string
-description: string
-imageUrl: string
-userId: string
-price: number}, {...}]
+[{**title**: *string*,
+**description**: *string*,
+**imageUrl**: *string*,
+**userId**: *string*,
+**price**: *number*}, {...}]
 
 #### /api/stuff
 
@@ -60,11 +60,11 @@ price: number}, {...}]
 Create stuff
 
 **Params**
-{title: string
-description: string
-imageUrl: string
-userId: string
-price: number}
+{**title**: _string_,
+**description**: _string_,
+**imageUrl**: _string_,
+**userId**: _string_,
+**price**: _number_}
 
 #### /api/stuff/:id
 
@@ -72,11 +72,11 @@ price: number}
 Get a specific stuff
 
 **Response**
-{title: string
-description: string
-imageUrl: string
-userId: string
-price: number}]
+{**title**: _string_,
+**description**: _string_,
+**imageUrl**: _string_,
+**userId**: _string_,
+**price**: _number_}]
 
 #### /api/stuff/:id
 
@@ -84,11 +84,11 @@ price: number}]
 Modify stuff
 
 **Params**
-{title: string
-description: string
-imageUrl: string
-userId: string
-price: number}
+{**title**: _string_,
+**description**: _string_,
+**imageUrl**: _string_,
+**userId**: _string_,
+**price**: _number_}
 
 #### /api/stuff/:id
 
