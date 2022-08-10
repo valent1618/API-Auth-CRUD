@@ -9,91 +9,11 @@ API for authentication and handle stuff with file.
 - **jsonwebtoken** is used to create a token to replace userId and improve security.
 - **multer** is used to handle file.
 
+I created a script to configure access to MongoDB Atlas.
+
 ## Routes
 
-You can have a better look to the routes at : https://valent1618.github.io/API-Auth-CRUD/
-
-### User
-
-#### /api/auth/signup
-
-**POST**
-Create a user
-
-**Params**
-{**email**: _string_,
-**password**: _string_}
-
-#### /api/auth/login
-
-**POST**
-Login
-
-**Params**
-{**email**: _string_,
-**password**: _string_}
-
-**Response**
-{**userId**: _string_,
-**token**: _string_}
-
-### Stuff
-
-**Header params for all stuff**
-{**token**: _string_ _a valid token_}
-
-#### /api/stuff
-
-**GET**
-Get all the stuff
-
-**Response**
-[{**title**: *string*,
-**description**: *string*,
-**imageUrl**: *string*,
-**userId**: *string*,
-**price**: *number*}, {...}]
-
-#### /api/stuff
-
-**POST**
-Create stuff
-
-**Params**
-{**title**: _string_,
-**description**: _string_,
-**imageUrl**: _string_,
-**userId**: _string_,
-**price**: _number_}
-
-#### /api/stuff/:id
-
-**GET**
-Get a specific stuff
-
-**Response**
-{**title**: _string_,
-**description**: _string_,
-**imageUrl**: _string_,
-**userId**: _string_,
-**price**: _number_}]
-
-#### /api/stuff/:id
-
-**PUT**
-Modify stuff
-
-**Params**
-{**title**: _string_,
-**description**: _string_,
-**imageUrl**: _string_,
-**userId**: _string_,
-**price**: _number_}
-
-#### /api/stuff/:id
-
-**DELETE**
-Delete stuff
+You can look at the routes at : https://valent1618.github.io/API-Auth-CRUD/
 
 ## Getting Started
 
@@ -127,13 +47,11 @@ npm install
 
 Create an account : <https://www.mongodb.com/cloud/atlas/register>
 
-5. **Connect** MongoDB with the API
+5. **Connect** MongoDB to API
 
-In app.js/line:11 replace :
-
-- \<USERNAME>
-- \<PASSWORD>
-- \<MongoAtlasCluster>
+```
+npm run config
+```
 
 ## RUN
 
