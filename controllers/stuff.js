@@ -30,40 +30,48 @@ exports.modifyStuff = (req, res, next) => {
   delete stuffObject._userId;
   Stuff.findOne({ _id: req.params.id })
     .then((stuff) => {
-      if (stuff.userId != req.auth.userId) {
-        res.status(401).json({ message: 'Unauthorized' });
+      if (!stuff) {
+        res.status(404).json({ message: 'Ressource not found' });
       } else {
-        if (req.file) {
-          const filename = stuff.imageUrl.split('/images/')[1];
-          fs.unlink(`images/${filename}`, (err) => {
-            if (err) {
-              console.log(err);
-            }
-          });
+        if (stuff.userId != req.auth.userId) {
+          res.status(401).json({ message: 'Unauthorized' });
+        } else {
+          if (req.file) {
+            const filename = stuff.imageUrl.split('/images/')[1];
+            fs.unlink(`images/${filename}`, (err) => {
+              if (err) {
+                console.log(err);
+              }
+            });
+          }
+          Stuff.updateOne(
+            { _id: req.params.id },
+            { ...stuffObject, _id: req.params.id }
+          )
+            .then(() => res.status(200).json({ message: 'Stuff modify !' }))
+            .catch((error) => res.status(400).json({ error }));
         }
-        Stuff.updateOne(
-          { _id: req.params.id },
-          { ...stuffObject, _id: req.params.id }
-        )
-          .then(() => res.status(200).json({ message: 'Stuff modify !' }))
-          .catch((error) => res.status(400).json({ error }));
       }
     })
-    .catch((error) => res.status(400).json({ error }));
+    .catch((error) => res.status(500).json({ error }));
 };
 
 exports.deleteStuff = (req, res, next) => {
   Stuff.findOne({ _id: req.params.id })
     .then((stuff) => {
-      if (stuff.userId != req.auth.userId) {
-        res.status(401).json({ message: 'Unauthorized' });
+      if (!stuff) {
+        res.status(404).json({ message: 'Ressource not found' });
       } else {
-        const filename = stuff.imageUrl.split('/images/')[1];
-        fs.unlink(`images/${filename}`, () => {
-          Stuff.deleteOne({ _id: req.params.id })
-            .then(() => res.status(200).json({ message: 'Stuff deleted !' }))
-            .catch((error) => res.status(400).json({ error }));
-        });
+        if (stuff.userId != req.auth.userId) {
+          res.status(401).json({ message: 'Unauthorized' });
+        } else {
+          const filename = stuff.imageUrl.split('/images/')[1];
+          fs.unlink(`images/${filename}`, () => {
+            Stuff.deleteOne({ _id: req.params.id })
+              .then(() => res.status(200).json({ message: 'Stuff deleted !' }))
+              .catch((error) => res.status(400).json({ error }));
+          });
+        }
       }
     })
     .catch((error) => res.status(500).json({ error }));
@@ -71,12 +79,18 @@ exports.deleteStuff = (req, res, next) => {
 
 exports.getOneStuff = (req, res, next) => {
   Stuff.findOne({ _id: req.params.id })
-    .then((stuff) => res.status(200).json(stuff))
-    .catch((error) => res.status(404).json({ error }));
+    .then((stuff) => {
+      if (!stuff) {
+        res.status(404).json({ message: 'Ressource not found' });
+      } else {
+        res.status(200).json(stuff);
+      }
+    })
+    .catch((error) => res.status(500).json({ error }));
 };
 
 exports.getAllStuff = (req, res, next) => {
   Stuff.find()
     .then((stuffs) => res.status(200).json(stuffs))
-    .catch((error) => res.status(400).json({ error }));
+    .catch((error) => res.status(500).json({ error }));
 };
