@@ -47,11 +47,19 @@ npm install
 
 Create an account : <https://www.mongodb.com/cloud/atlas/register>
 
-5. **Connect** MongoDB to API
+5. **Create** user for the databse
+
+Create user in Security => Database Access => Add new.
+
+> Select 'Read and write' for the Built-in Role
+
+6. **Connect** MongoDB to API
 
 ```
 npm run config
 ```
+
+> Your cluster is something like : 'cluster0.aaaa.mongodb.net'
 
 ## RUN
 
