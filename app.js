@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
@@ -11,7 +12,7 @@ const userRoutes = require('./routes/user');
 const stuffRoutes = require('./routes/stuff');
 
 mongoose
-  .connect('mongodb+srv://<USERNAME>:<PASSWORD>@<MongoAtlasCluster>', {
+  .connect(process.env.MONGODB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
